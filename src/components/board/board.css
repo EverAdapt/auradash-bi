@@ -1,0 +1,77 @@
+/*
+ * OWNER: ask-board. react-grid-layout chrome, styled with auradash-bi's tokens. The library's own
+ * `react-grid-layout/css/styles.css` (imported once in BoardGrid.tsx) supplies the base
+ * transitions, `.react-draggable-dragging` and the resize-handle geometry; this file only
+ * restyles them.
+ */
+
+.dash-board {
+  width: 100%;
+}
+
+.dash-grid-item {
+  height: 100%;
+}
+
+/* The card itself: same shell as a shadcn <Card>, but drawn by hand so PinCard controls every
+   part of it (drag handle header, hover toolbar, chart body). */
+.dash-pin-card {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: var(--card);
+  box-shadow: var(--shadow-rest);
+  transition:
+    box-shadow 150ms var(--ease-out),
+    border-color 150ms var(--ease-out);
+}
+
+/* The resize handle: faint by default, solid on hover . */
+.react-grid-item > .react-resizable-handle {
+  opacity: 0.35;
+}
+.react-grid-item:hover > .react-resizable-handle {
+  opacity: 0.9;
+}
+.dark .react-grid-item > .react-resizable-handle {
+  filter: invert(1);
+}
+
+.react-grid-item.react-grid-placeholder {
+  background: var(--brand) !important;
+  opacity: 0.12;
+  border-radius: var(--radius-lg);
+}
+
+.react-grid-item.react-draggable-dragging,
+.react-grid-item.resizing {
+  z-index: 10;
+}
+.react-grid-item.react-draggable-dragging .dash-pin-card,
+.react-grid-item.resizing .dash-pin-card {
+  box-shadow: var(--shadow-lift);
+  border-color: var(--line-strong);
+}
+
+/* A freshly-pinned card flashes a brand ring once. */
+@keyframes dash-flash {
+  0% {
+    box-shadow:
+      0 0 0 3px var(--brand),
+      var(--shadow-lift);
+  }
+  100% {
+    box-shadow: var(--shadow-rest);
+  }
+}
+.dash-grid-item-new .dash-pin-card {
+  animation: dash-flash 1.6s var(--ease-out);
+}
+@media (prefers-reduced-motion: reduce) {
+  .dash-grid-item-new .dash-pin-card {
+    animation: none;
+  }
+}

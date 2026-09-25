@@ -1,0 +1,173 @@
+{
+  "id": "nobel",
+  "title": "Nobel Prizes",
+  "tagline": "Every Nobel Prize and laureate since 1901: who won, when, how old they were, where they were born and worked.",
+  "source": { "name": "Nobel Prize Outreach - api.nobelprize.org v2.1", "url": "https://www.nobelprize.org/about/developer-zone-2/" },
+  "license": { "id": "CC0-1.0", "url": "https://www.nobelprize.org/about/terms-of-use-for-api-nobelprize-org-and-data-nobelprize-org/" },
+  "attribution": "Data: Nobel Prize Outreach, api.nobelprize.org (CC0). Not endorsed by Nobel Prize Outreach.",
+  "defaultFact": "awards",
+  "tables": {
+    "categories": {
+      "label": "Categories", "description": "The six prize categories (Economics since 1969).",
+      "synonyms": ["field", "discipline", "subject", "prize type"], "display": "name",
+      "columns": {
+        "category_id": { "label": "Category code", "role": "id" },
+        "name": { "label": "Category", "role": "dimension",
+          "values": { "Physics": ["physics"], "Chemistry": ["chemistry"], "Physiology or Medicine": ["medicine", "physiology", "medical"],
+                      "Literature": ["literature", "writing", "writers"], "Peace": ["peace"], "Economic Sciences": ["economics", "economy", "economists"] } },
+        "full_name": { "label": "Official prize name", "role": "text" },
+        "first_year": { "label": "First awarded", "role": "time" }
+      }
+    },
+    "countries": {
+      "label": "Countries", "description": "Present-day countries (ISO alpha-3) used for birth, death and institution locations.",
+      "synonyms": ["nation", "country"], "display": "name",
+      "columns": {
+        "country_code": { "label": "Country code", "role": "geo_code", "geo": "iso3" },
+        "name": { "label": "Country", "role": "dimension", "values": { "United States": ["usa", "us", "america"], "United Kingdom": ["uk", "britain", "england", "scotland"] } },
+        "continent": { "label": "Continent", "role": "dimension" },
+        "latitude": { "label": "Latitude", "role": "latitude" },
+        "longitude": { "label": "Longitude", "role": "longitude" }
+      }
+    },
+    "laureates": {
+      "label": "Laureates", "description": "People and organisations who received a Nobel Prize. One row each, even if they won twice.",
+      "synonyms": ["winner", "winners", "laureate", "people", "scientists", "who"], "display": "name",
+      "listColumns": ["name", "kind", "gender", "birth_date", "birth_country_code", "birth_city", "lifespan_years"],
+      "columns": {
+        "laureate_id": { "label": "Laureate id", "role": "id" },
+        "name": { "label": "Laureate", "role": "label" },
+        "full_name": { "label": "Full name", "role": "text" },
+        "kind": { "label": "Person or organisation", "role": "dimension", "values": { "person": ["people", "individuals"], "organization": ["organisations", "organizations", "institutions", "ngo"] } },
+        "gender": { "label": "Gender", "role": "dimension", "values": { "female": ["women", "woman", "female", "she"], "male": ["men", "man", "male"] } },
+        "birth_date": { "label": "Born on", "role": "date" },
+        "birth_year": { "label": "Birth year", "role": "time" },
+        "birth_decade": { "label": "Birth decade", "role": "time", "grain": "decade" },
+        "birth_city": { "label": "Birth city", "role": "dimension", "synonyms": ["hometown", "born in"] },
+        "birth_country_code": { "label": "Birth country", "role": "geo_code", "geo": "iso3", "fk": "countries.country_code",
+          "synonyms": ["born in", "country of birth", "nationality", "country", "countries", "each country", "by country", "around the world", "where"] },
+        "birth_country_then": { "label": "Birth country (at the time)", "role": "dimension", "synonyms": ["historical country", "empire"] },
+        "birth_latitude": { "label": "Birth latitude", "role": "latitude" },
+        "birth_longitude": { "label": "Birth longitude", "role": "longitude" },
+        "death_date": { "label": "Died on", "role": "date" },
+        "death_year": { "label": "Death year", "role": "time" },
+        "death_country_code": { "label": "Country of death", "role": "geo_code", "geo": "iso3", "fk": "countries.country_code",
+          "synonyms": ["died in", "death country", "country of death", "where they died", "passed away in"] },
+        "is_alive": { "label": "Still alive", "role": "flag", "synonyms": ["living", "alive"] },
+        "lifespan_years": { "label": "Lifespan (years)", "role": "measure", "agg": "avg", "unit": "years" },
+        "founded_year": { "label": "Founded (organisations)", "role": "time" },
+        "wikipedia_url": { "label": "Wikipedia", "role": "url" },
+        "wikidata_id": { "label": "Wikidata id", "role": "text" }
+      }
+    },
+    "prizes": {
+      "label": "Prizes", "description": "One row per category per year, including years when no prize was awarded (is_awarded = 0).",
+      "synonyms": ["prize", "award year", "nobel"], "display": "prize_id",
+      "columns": {
+        "prize_id": { "label": "Prize", "role": "id" },
+        "award_year": { "label": "Year", "role": "time", "grain": "year", "synonyms": ["year", "when"] },
+        "decade": { "label": "Decade", "role": "time", "grain": "decade" },
+        "category_id": { "label": "Category", "role": "fk", "fk": "categories.category_id" },
+        "date_awarded": { "label": "Announced on", "role": "date" },
+        "prize_amount_sek": { "label": "Prize money (SEK, nominal)", "role": "measure", "agg": "max", "unit": "SEK" },
+        "prize_amount_adj_sek": { "label": "Prize money (SEK, today's value)", "role": "measure", "agg": "max", "unit": "SEK", "synonyms": ["prize money", "prize amount", "how much money", "inflation adjusted"] },
+        "laureate_count": { "label": "Laureates sharing", "role": "measure", "agg": "avg" },
+        "is_awarded": { "label": "Awarded", "role": "flag" },
+        "top_motivation": { "label": "Note", "role": "text" }
+      }
+    },
+    "awards": {
+      "label": "Awards", "description": "Who won which prize (laureate x prize). The main fact table: count rows to count prizes won.",
+      "synonyms": ["award", "win", "wins", "prizes won", "nobels"],
+      "listColumns": ["laureate_id", "portion", "age_at_award", "share", "prize_status"],
+      "columns": {
+        "award_id": { "label": "Award id", "role": "id" },
+        "prize_id": { "label": "Prize", "role": "fk", "fk": "prizes.prize_id" },
+        "laureate_id": { "label": "Laureate", "role": "fk", "fk": "laureates.laureate_id" },
+        "portion": { "label": "Share of prize", "role": "dimension", "values": { "1": ["solo", "alone", "unshared", "whole"], "1/2": ["half"], "1/3": ["third"], "1/4": ["quarter"] } },
+        "share": { "label": "Prize share", "role": "measure", "agg": "sum", "synonyms": ["full prizes", "prize equivalents"] },
+        "sort_order": { "label": "Order", "role": "hidden" },
+        "motivation": { "label": "Motivation", "role": "text", "synonyms": ["why", "for what", "citation"] },
+        "prize_status": { "label": "Status", "role": "dimension", "values": { "declined": ["refused", "declined"], "restricted": ["forbidden", "not allowed"], "received": ["accepted"] } },
+        "age_at_award": { "label": "Age at award", "role": "measure", "agg": "avg", "unit": "years", "binnable": { "width": 5 }, "synonyms": ["age", "how old", "youngest", "oldest"] }
+      }
+    },
+    "affiliations": {
+      "label": "Institutions", "description": "Universities and institutes laureates were affiliated with when they won.",
+      "synonyms": ["university", "universities", "institute", "institution", "lab", "affiliation", "where they worked"], "display": "name",
+      "columns": {
+        "affiliation_id": { "label": "Institution id", "role": "id" },
+        "name": { "label": "Institution", "role": "label" },
+        "city": { "label": "City", "role": "dimension" },
+        "country_code": { "label": "Institution country", "role": "geo_code", "geo": "iso3", "fk": "countries.country_code" },
+        "latitude": { "label": "Latitude", "role": "latitude" },
+        "longitude": { "label": "Longitude", "role": "longitude" }
+      }
+    },
+    "award_affiliations": {
+      "label": "Award institutions", "description": "Bridge: which institution(s) each award is credited to.", "role": "bridge",
+      "columns": {
+        "award_id": { "label": "Award", "role": "fk", "fk": "awards.award_id" },
+        "affiliation_id": { "label": "Institution", "role": "fk", "fk": "affiliations.affiliation_id" }
+      }
+    }
+  },
+  "joins": [
+    { "from": "awards.prize_id", "to": "prizes.prize_id", "kind": "many-to-one" },
+    { "from": "awards.laureate_id", "to": "laureates.laureate_id", "kind": "many-to-one" },
+    { "from": "prizes.category_id", "to": "categories.category_id", "kind": "many-to-one" },
+    { "from": "laureates.birth_country_code", "to": "countries.country_code", "kind": "many-to-one", "alias": "birth_country" },
+    { "from": "laureates.death_country_code", "to": "countries.country_code", "kind": "many-to-one", "alias": "death_country" },
+    { "from": "award_affiliations.award_id", "to": "awards.award_id", "kind": "many-to-one" },
+    { "from": "award_affiliations.affiliation_id", "to": "affiliations.affiliation_id", "kind": "many-to-one" },
+    { "from": "affiliations.country_code", "to": "countries.country_code", "kind": "many-to-one", "alias": "institution_country" }
+  ],
+  "metrics": {
+    "awards": { "label": "Prizes won", "sql": "COUNT(*)", "table": "awards", "description": "the default way to count Nobel prizes or wins here, one per laureate credited",
+      "synonyms": ["how many", "prizes", "prizes won", "awards won", "number of laureates", "count", "wins"] },
+    "laureates": { "label": "Laureates", "sql": "COUNT(DISTINCT awards.laureate_id)", "table": "awards", "synonyms": ["distinct winners", "people"] },
+    "avg_age": { "label": "Average age at award", "sql": "ROUND(AVG(awards.age_at_award), 1)", "table": "awards", "synonyms": ["average age", "mean age", "typical age"] },
+    "prize_shares": { "label": "Full-prize equivalents", "sql": "ROUND(SUM(awards.share), 2)", "table": "awards" },
+    "women_share": { "label": "Share of women (%)", "sql": "ROUND(100.0 * AVG(laureates.gender = 'female'), 1)", "table": "awards", "requires": ["laureates"], "synonyms": ["percentage of women", "gender balance"] },
+    "prize_money": { "label": "Prize money today (SEK)", "sql": "MAX(prizes.prize_amount_adj_sek)", "table": "prizes" }
+  },
+  "planRules": [
+    { "kind": "require_filter", "when": "^laureates\\.(gender|is_alive|lifespan_years|birth_|death_)|age_at_award",
+      "filter": { "column": "laureates.kind", "op": "eq", "values": ["person"], "label": "Only people (not organisations)" } },
+    { "kind": "require_filter", "when": "^(n:prizes|prizes)$",
+      "filter": { "column": "prizes.is_awarded", "op": "eq", "values": [1], "label": "Awarded" } }
+  ],
+  "relationship": { "entity": "laureates.name" },
+  "caveats": [
+    "Counting awards counts wins: Marie Curie, Bardeen, Sanger, Sharpless, the Red Cross (3x) and UNHCR (2x) appear more than once. Use COUNT(DISTINCT laureate_id) for people.",
+    "age_at_award, gender and birth_* are NULL for the 28 organisations; filter kind = 'person' for age or gender questions.",
+    "prizes includes 49 rows with is_awarded = 0 (wars, reserved years). Filter is_awarded = 1 when counting prizes.",
+    "Country = present-day country of birth (countryNow). birth_country_then keeps the historical name (Prussia, Russian Empire, Austria-Hungary)."
+  ],
+  "tryPrompts": [
+    { "text": "How many women have won a Nobel Prize?", "chart": "kpi",
+      "sql": "SELECT COUNT(*) AS women_laureates FROM laureates WHERE gender = 'female'" },
+    { "text": "Which categories have the most prizes?", "chart": "donut",
+      "sql": "SELECT c.name AS category, COUNT(*) AS awards FROM awards a JOIN prizes p ON p.prize_id = a.prize_id JOIN categories c ON c.category_id = p.category_id GROUP BY c.name ORDER BY awards DESC" },
+    { "text": "Women and men laureates by decade", "chart": "stacked_column",
+      "sql": "SELECT p.decade, l.gender, COUNT(*) AS laureates FROM awards a JOIN prizes p ON p.prize_id = a.prize_id JOIN laureates l ON l.laureate_id = a.laureate_id WHERE l.kind = 'person' GROUP BY p.decade, l.gender ORDER BY p.decade" },
+    { "text": "How old are laureates when they win?", "chart": "histogram",
+      "sql": "SELECT (age_at_award / 5) * 5 AS age_band, COUNT(*) AS laureates FROM awards WHERE age_at_award IS NOT NULL GROUP BY age_band ORDER BY age_band" },
+    { "text": "Are laureates getting older? Age at award by year", "chart": "scatter",
+      "sql": "SELECT p.award_year, a.age_at_award, c.name AS category, l.name AS laureate FROM awards a JOIN prizes p ON p.prize_id = a.prize_id JOIN categories c ON c.category_id = p.category_id JOIN laureates l ON l.laureate_id = a.laureate_id WHERE a.age_at_award IS NOT NULL" },
+    { "text": "Which countries were the most laureates born in?", "chart": "choropleth",
+      "sql": "SELECT co.country_code, co.name AS country, COUNT(*) AS laureates FROM laureates l JOIN countries co ON co.country_code = l.birth_country_code GROUP BY co.country_code, co.name ORDER BY laureates DESC" },
+    { "text": "Where were physics laureates born?", "chart": "point_map",
+      "sql": "SELECT l.name AS laureate, l.birth_city, l.birth_latitude AS latitude, l.birth_longitude AS longitude, p.award_year FROM awards a JOIN prizes p ON p.prize_id = a.prize_id JOIN laureates l ON l.laureate_id = a.laureate_id WHERE p.category_id = 'phy' AND l.birth_latitude IS NOT NULL" },
+    { "text": "Top 10 universities by Nobel prizes", "chart": "bar_ranked",
+      "sql": "SELECT af.name AS institution, co.name AS country, COUNT(DISTINCT aa.award_id) AS prizes FROM affiliations af JOIN award_affiliations aa ON aa.affiliation_id = af.affiliation_id LEFT JOIN countries co ON co.country_code = af.country_code GROUP BY af.affiliation_id ORDER BY prizes DESC LIMIT 10" }
+  ],
+  "morePrompts": [
+    { "text": "Prize money over time, adjusted for inflation", "chart": "line",
+      "sql": "SELECT award_year, MAX(prize_amount_adj_sek) AS prize_amount_adj_sek FROM prizes GROUP BY award_year ORDER BY award_year" },
+    { "text": "Prizes by category and decade", "chart": "heatmap",
+      "sql": "SELECT p.decade, c.name AS category, COUNT(*) AS awards FROM awards a JOIN prizes p ON p.prize_id = a.prize_id JOIN categories c ON c.category_id = p.category_id GROUP BY p.decade, c.name ORDER BY p.decade" },
+    { "text": "Average age at award per decade", "chart": "line",
+      "sql": "SELECT decade, ROUND(AVG(age_at_award), 1) AS avg_age FROM award_facts WHERE age_at_award IS NOT NULL GROUP BY decade ORDER BY decade" }
+  ]
+}

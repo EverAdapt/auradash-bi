@@ -1,0 +1,686 @@
+{
+  "id": "world",
+  "title": "World in Numbers",
+  "tagline": "217 countries, 1960-2025: population, wealth, health, energy, internet and emissions from the World Bank.",
+  "source": {
+    "name": "World Bank - World Development Indicators (API v2, source 2)",
+    "url": "https://datacatalog.worldbank.org/search/dataset/0037712/World-Development-Indicators"
+  },
+  "license": {
+    "id": "CC-BY-4.0",
+    "url": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "attribution": "Data: World Bank, World Development Indicators (retrieved <BUILD_DATE>), CC BY 4.0. Country names shortened; values unchanged.",
+  "defaultFact": "country_year",
+  "defaultYearRule": "When the question has no year, use indicators.latest_year for the measure(s) involved (the min across them for multi-measure charts).",
+  "tables": {
+    "regions": {
+      "label": "Regions",
+      "description": "The seven World Bank geographic regions.",
+      "display": "name",
+      "synonyms": [
+        "region",
+        "continent",
+        "part of the world",
+        "area"
+      ],
+      "columns": {
+        "region_id": {
+          "label": "Region code",
+          "role": "id"
+        },
+        "name": {
+          "label": "Region",
+          "role": "dimension",
+          "values": {
+            "East Asia & Pacific": [
+              "asia",
+              "east asia",
+              "pacific",
+              "oceania"
+            ],
+            "Europe & Central Asia": [
+              "europe",
+              "central asia"
+            ],
+            "Latin America & Caribbean": [
+              "latin america",
+              "south america",
+              "caribbean"
+            ],
+            "Middle East, North Africa, Afghanistan & Pakistan": [
+              "middle east",
+              "north africa",
+              "mena"
+            ],
+            "North America": [
+              "north america"
+            ],
+            "South Asia": [
+              "south asia",
+              "indian subcontinent"
+            ],
+            "Sub-Saharan Africa": [
+              "africa",
+              "sub-saharan africa"
+            ]
+          }
+        }
+      }
+    },
+    "income_groups": {
+      "label": "Income groups",
+      "description": "World Bank income classification (fiscal-year 2026), ordered by rank.",
+      "display": "name",
+      "synonyms": [
+        "income level",
+        "rich",
+        "poor",
+        "wealth group",
+        "developing",
+        "developed"
+      ],
+      "columns": {
+        "income_group_id": {
+          "label": "Income code",
+          "role": "id"
+        },
+        "name": {
+          "label": "Income group",
+          "role": "dimension",
+          "sortBy": "rank",
+          "values": {
+            "High income": [
+              "rich",
+              "wealthy",
+              "developed",
+              "high income"
+            ],
+            "Upper middle income": [
+              "upper middle"
+            ],
+            "Lower middle income": [
+              "lower middle"
+            ],
+            "Low income": [
+              "poor",
+              "poorest",
+              "low income"
+            ]
+          }
+        },
+        "rank": {
+          "label": "Income rank",
+          "role": "order"
+        }
+      }
+    },
+    "countries": {
+      "label": "Countries",
+      "description": "217 economies with region, income group and capital-city coordinates.",
+      "display": "name",
+      "synonyms": [
+        "country",
+        "nation",
+        "economy",
+        "economies"
+      ],
+      "columns": {
+        "country_code": {
+          "label": "Country code",
+          "role": "geo_code",
+          "geo": "iso3"
+        },
+        "iso2_code": {
+          "label": "ISO2",
+          "role": "hidden"
+        },
+        "name": {
+          "label": "Country",
+          "role": "label",
+          "values": {
+            "United States": [
+              "usa",
+              "us",
+              "america",
+              "united states of america"
+            ],
+            "United Kingdom": [
+              "uk",
+              "britain",
+              "great britain",
+              "england"
+            ],
+            "Turkiye": [
+              "turkey",
+              "türkiye"
+            ],
+            "Czechia": [
+              "czech republic"
+            ],
+            "West Bank and Gaza": [
+              "palestine"
+            ],
+            "Cote d'Ivoire": [
+              "ivory coast"
+            ],
+            "Eswatini": [
+              "swaziland"
+            ],
+            "Myanmar": [
+              "burma"
+            ],
+            "Cabo Verde": [
+              "cape verde"
+            ]
+          }
+        },
+        "official_name": {
+          "label": "Official name",
+          "role": "text"
+        },
+        "region_id": {
+          "label": "Region",
+          "role": "fk",
+          "fk": "regions.region_id"
+        },
+        "income_group_id": {
+          "label": "Income group",
+          "role": "fk",
+          "fk": "income_groups.income_group_id"
+        },
+        "lending_type": {
+          "label": "Lending type",
+          "role": "dimension"
+        },
+        "capital_city": {
+          "label": "Capital",
+          "role": "dimension"
+        },
+        "latitude": {
+          "label": "Capital latitude",
+          "role": "latitude"
+        },
+        "longitude": {
+          "label": "Capital longitude",
+          "role": "longitude"
+        }
+      }
+    },
+    "indicators": {
+      "label": "Indicators",
+      "description": "Metadata for each measure column in country_year: label, unit, years covered and source.",
+      "display": "label",
+      "columns": {
+        "indicator_code": {
+          "label": "WDI code",
+          "role": "id"
+        },
+        "column_name": {
+          "label": "Column",
+          "role": "hidden"
+        },
+        "label": {
+          "label": "Indicator",
+          "role": "label"
+        },
+        "name": {
+          "label": "Official name",
+          "role": "text"
+        },
+        "unit": {
+          "label": "Unit",
+          "role": "text"
+        },
+        "topic": {
+          "label": "Topic",
+          "role": "dimension"
+        },
+        "direction": {
+          "label": "Higher is better?",
+          "role": "hidden"
+        },
+        "first_year": {
+          "label": "First year",
+          "role": "time"
+        },
+        "latest_year": {
+          "label": "Latest year",
+          "role": "time"
+        },
+        "description": {
+          "label": "Definition",
+          "role": "text"
+        },
+        "source": {
+          "label": "Original source",
+          "role": "text"
+        }
+      },
+      "hidden": true
+    },
+    "country_year": {
+      "label": "Country by year",
+      "description": "One row per country per year (1960-2025) with 13 indicators plus derived total CO2.",
+      "synonyms": [
+        "data",
+        "stats",
+        "over time",
+        "trend",
+        "history"
+      ],
+      "listColumns": ["country_code", "year", "population", "gdp_per_capita_usd", "life_expectancy", "co2_per_capita_t"],
+      "columns": {
+        "country_code": {
+          "label": "Country",
+          "role": "geo_code",
+          "geo": "iso3",
+          "fk": "countries.country_code",
+          "synonyms": [
+            "country",
+            "countries",
+            "each country",
+            "by country",
+            "across countries",
+            "around the world",
+            "worldwide",
+            "where",
+            "which country"
+          ]
+        },
+        "year": {
+          "label": "Year",
+          "role": "time",
+          "grain": "year",
+          "synonyms": [
+            "when",
+            "in"
+          ]
+        },
+        "decade": {
+          "label": "Decade",
+          "role": "time",
+          "grain": "decade"
+        },
+        "population": {
+          "label": "Population",
+          "role": "measure",
+          "agg": "sum",
+          "additive": true,
+          "unit": "people",
+          "format": "compact",
+          "synonyms": [
+            "people",
+            "inhabitants",
+            "how many people",
+            "biggest",
+            "largest"
+          ]
+        },
+        "gdp_usd": {
+          "label": "GDP",
+          "role": "measure",
+          "agg": "sum",
+          "additive": true,
+          "unit": "US$",
+          "format": "currency_compact",
+          "synonyms": [
+            "economy size",
+            "economic output",
+            "gross domestic product"
+          ]
+        },
+        "gdp_per_capita_usd": {
+          "label": "GDP per person",
+          "role": "measure",
+          "agg": "weighted_avg",
+          "weight": "population",
+          "additive": false,
+          "unit": "US$",
+          "format": "currency",
+          "scale": "log",
+          "synonyms": [
+            "income",
+            "wealth",
+            "richest",
+            "poorest",
+            "richer",
+            "poorer",
+            "gdp per capita",
+            "standard of living"
+          ]
+        },
+        "life_expectancy": {
+          "label": "Life expectancy",
+          "role": "measure",
+          "agg": "weighted_avg",
+          "weight": "population",
+          "additive": false,
+          "unit": "years",
+          "synonyms": [
+            "lifespan",
+            "live longer",
+            "longevity",
+            "how long people live"
+          ]
+        },
+        "infant_mortality": {
+          "label": "Infant mortality",
+          "role": "measure",
+          "agg": "weighted_avg",
+          "weight": "population",
+          "additive": false,
+          "unit": "per 1,000 births",
+          "direction": -1,
+          "synonyms": [
+            "baby deaths",
+            "child mortality"
+          ]
+        },
+        "health_spend_pct_gdp": {
+          "label": "Health spending",
+          "role": "measure",
+          "agg": "weighted_avg",
+          "weight": "gdp_usd",
+          "additive": false,
+          "unit": "% of GDP",
+          "synonyms": [
+            "healthcare spending",
+            "health expenditure"
+          ]
+        },
+        "fertility_rate": {
+          "label": "Fertility rate",
+          "role": "measure",
+          "agg": "weighted_avg",
+          "weight": "population",
+          "additive": false,
+          "unit": "births per woman",
+          "binnable": {
+            "width": 0.5
+          },
+          "synonyms": [
+            "children per woman",
+            "birth rate",
+            "babies"
+          ]
+        },
+        "urban_pct": {
+          "label": "Urban population",
+          "role": "measure",
+          "agg": "weighted_avg",
+          "weight": "population",
+          "additive": false,
+          "unit": "%",
+          "synonyms": [
+            "urbanisation",
+            "urbanization",
+            "cities",
+            "living in cities"
+          ]
+        },
+        "internet_pct": {
+          "label": "Internet users",
+          "role": "measure",
+          "agg": "weighted_avg",
+          "weight": "population",
+          "additive": false,
+          "unit": "%",
+          "synonyms": [
+            "online",
+            "internet access",
+            "connected"
+          ]
+        },
+        "electricity_access_pct": {
+          "label": "Access to electricity",
+          "role": "measure",
+          "agg": "weighted_avg",
+          "weight": "population",
+          "additive": false,
+          "unit": "%",
+          "synonyms": [
+            "electricity",
+            "power access",
+            "lack electricity",
+            "without electricity",
+            "no electricity",
+            "no power",
+            "don't have electricity",
+            "electricity access",
+            "lack power",
+            "without power",
+            "off the grid",
+            "electrified"
+          ]
+        },
+        "renewable_energy_pct": {
+          "label": "Renewable energy share",
+          "role": "measure",
+          "agg": "avg",
+          "additive": false,
+          "unit": "% of final energy",
+          "synonyms": [
+            "renewables",
+            "clean energy",
+            "green energy"
+          ]
+        },
+        "co2_per_capita_t": {
+          "label": "CO2 per person",
+          "role": "measure",
+          "agg": "weighted_avg",
+          "weight": "population",
+          "additive": false,
+          "unit": "t CO2e",
+          "direction": -1,
+          "synonyms": [
+            "emissions per capita",
+            "carbon footprint"
+          ]
+        },
+        "forest_pct": {
+          "label": "Forest cover",
+          "role": "measure",
+          "agg": "avg",
+          "additive": false,
+          "unit": "% of land",
+          "synonyms": [
+            "forests",
+            "trees",
+            "deforestation"
+          ]
+        },
+        "co2_total_mt": {
+          "label": "CO2 emissions (total)",
+          "role": "measure",
+          "agg": "sum",
+          "additive": true,
+          "unit": "Mt CO2e",
+          "direction": -1,
+          "synonyms": [
+            "emissions",
+            "emitters",
+            "polluters",
+            "carbon",
+            "co2",
+            "greenhouse gas"
+          ]
+        }
+      }
+    },
+    "aggregates": {
+      "label": "World & group totals",
+      "description": "World, the 7 regions and 4 income groups as computed by the World Bank (properly weighted).",
+      "display": "name",
+      "columns": {
+        "aggregate_code": {
+          "label": "Group code",
+          "role": "id"
+        },
+        "name": {
+          "label": "Group",
+          "role": "dimension",
+          "values": {
+            "World": [
+              "world",
+              "global",
+              "globally",
+              "planet",
+              "everyone"
+            ]
+          }
+        },
+        "kind": {
+          "label": "Group type",
+          "role": "dimension",
+          "values": {
+            "world": [
+              "world"
+            ],
+            "region": [
+              "regions",
+              "by region"
+            ],
+            "income": [
+              "income groups",
+              "by income"
+            ]
+          }
+        }
+      }
+    },
+    "aggregate_year": {
+      "label": "Totals by year",
+      "description": "Same 13 indicators for World / regions / income groups. Prefer this over averaging countries.",
+      "columns": {
+        "aggregate_code": {
+          "label": "Group",
+          "role": "fk",
+          "fk": "aggregates.aggregate_code"
+        },
+        "year": {
+          "label": "Year",
+          "role": "time",
+          "grain": "year"
+        },
+        "decade": {
+          "label": "Decade",
+          "role": "time",
+          "grain": "decade"
+        }
+      },
+      "inheritMeasuresFrom": "country_year"
+    }
+  },
+  "joins": [
+    {
+      "from": "country_year.country_code",
+      "to": "countries.country_code",
+      "kind": "many-to-one"
+    },
+    {
+      "from": "countries.region_id",
+      "to": "regions.region_id",
+      "kind": "many-to-one"
+    },
+    {
+      "from": "countries.income_group_id",
+      "to": "income_groups.income_group_id",
+      "kind": "many-to-one"
+    },
+    {
+      "from": "aggregate_year.aggregate_code",
+      "to": "aggregates.aggregate_code",
+      "kind": "many-to-one"
+    }
+  ],
+  "rules": [
+    "Group-level answers (world, a region, an income group) come from aggregate_year, never AVG() over countries: per-person and % columns are not additive.",
+    "If the compiler must aggregate countries itself (e.g. a custom group), use SUM(x * population) / SUM(population) for weighted_avg measures.",
+    "Resolve 'latest'/'now'/'today'/no year to indicators.latest_year of the measure; 2025 only has population, GDP and urban data.",
+    "Put gdp_per_capita_usd on a log scale in scatter charts."
+  ],
+  "planRules": [
+    {
+      "kind": "rollup",
+      "from": "country_year",
+      "to": "aggregate_year",
+      "groups": [
+        { "table": "regions", "groupBy": "aggregates.name",
+          "filter": { "column": "aggregates.kind", "op": "eq", "values": ["region"], "label": "Group type is region" } },
+        { "table": "income_groups", "groupBy": "aggregates.name",
+          "filter": { "column": "aggregates.kind", "op": "eq", "values": ["income"], "label": "Group type is income" } },
+        { "table": "aggregates", "groupBy": "aggregates.name" }
+      ],
+      "filterTables": ["aggregates"],
+      "total": {
+        "filter": { "column": "aggregate_year.aggregate_code", "op": "eq", "values": ["WLD"], "label": "Group is World" },
+        "entityTables": ["countries"],
+        "entityColumns": ["country_year.country_code"]
+      }
+    },
+    { "kind": "default_latest_year" }
+  ],
+  "relationship": { "entity": "countries.name", "size": "population", "color": "region_id" },
+  "groupLabels": { "region": "Region", "income": "Income group", "world": "World" },
+  "tryPrompts": [
+    {
+      "text": "What's the world population right now?",
+      "chart": "kpi",
+      "sql": "SELECT year, population FROM aggregate_year WHERE aggregate_code = 'WLD' AND population IS NOT NULL ORDER BY year DESC LIMIT 1"
+    },
+    {
+      "text": "Life expectancy by region since 1960",
+      "chart": "multi_line",
+      "sql": "SELECT ay.year, ag.name AS region, ay.life_expectancy FROM aggregate_year ay JOIN aggregates ag ON ag.aggregate_code = ay.aggregate_code WHERE ag.kind = 'region' AND ay.life_expectancy IS NOT NULL ORDER BY ay.year"
+    },
+    {
+      "text": "Do richer countries live longer?",
+      "chart": "bubble_scatter",
+      "sql": "SELECT c.name AS country, r.name AS region, cy.gdp_per_capita_usd, cy.life_expectancy, cy.population FROM country_year cy JOIN countries c ON c.country_code = cy.country_code JOIN regions r ON r.region_id = c.region_id WHERE cy.year = 2024 AND cy.gdp_per_capita_usd IS NOT NULL AND cy.life_expectancy IS NOT NULL"
+    },
+    {
+      "text": "Internet users around the world",
+      "chart": "choropleth",
+      "sql": "SELECT cy.country_code, c.name AS country, cy.internet_pct FROM country_year cy JOIN countries c ON c.country_code = cy.country_code WHERE cy.year = 2024 AND cy.internet_pct IS NOT NULL"
+    },
+    {
+      "text": "Top 10 CO2 emitters",
+      "chart": "bar_ranked",
+      "sql": "SELECT c.name AS country, ROUND(cy.co2_total_mt) AS co2_mt FROM country_year cy JOIN countries c ON c.country_code = cy.country_code WHERE cy.year = 2024 AND cy.co2_total_mt IS NOT NULL ORDER BY cy.co2_total_mt DESC LIMIT 10"
+    },
+    {
+      "text": "How is the world's population split by income group?",
+      "chart": "donut",
+      "sql": "SELECT ag.name AS income_group, ay.population FROM aggregate_year ay JOIN aggregates ag ON ag.aggregate_code = ay.aggregate_code WHERE ag.kind = 'income' AND ay.year = 2024 ORDER BY ay.population DESC"
+    },
+    {
+      "text": "Australia vs New Zealand vs Canada: GDP per person since 1990",
+      "chart": "multi_line",
+      "sql": "SELECT cy.year, c.name AS country, cy.gdp_per_capita_usd FROM country_year cy JOIN countries c ON c.country_code = cy.country_code WHERE c.name IN ('Australia', 'New Zealand', 'Canada') AND cy.year >= 1990 ORDER BY cy.year"
+    },
+    {
+      "text": "How many children per woman across countries?",
+      "chart": "histogram",
+      "sql": "SELECT CAST(fertility_rate * 2 AS INTEGER) / 2.0 AS births_per_woman, COUNT(*) AS countries FROM country_year WHERE year = 2024 AND fertility_rate IS NOT NULL GROUP BY births_per_woman ORDER BY births_per_woman"
+    }
+  ],
+  "morePrompts": [
+    {
+      "text": "Renewable energy share by region, 2000 vs 2020",
+      "chart": "grouped_bar",
+      "sql": "SELECT ag.name AS region, ay.year, ay.renewable_energy_pct FROM aggregate_year ay JOIN aggregates ag ON ag.aggregate_code = ay.aggregate_code WHERE ag.kind = 'region' AND ay.year IN (2000, 2020)"
+    },
+    {
+      "text": "Forest cover by region since 1990",
+      "chart": "multi_line",
+      "sql": "SELECT ay.year, ag.name AS region, ay.forest_pct FROM aggregate_year ay JOIN aggregates ag ON ag.aggregate_code = ay.aggregate_code WHERE ag.kind = 'region' AND ay.year >= 1990 AND ay.forest_pct IS NOT NULL ORDER BY ay.year"
+    },
+    {
+      "text": "Where do people still lack electricity?",
+      "chart": "choropleth",
+      "sql": "SELECT cy.country_code, c.name AS country, cy.electricity_access_pct FROM country_year cy JOIN countries c ON c.country_code = cy.country_code WHERE cy.year = 2024 AND cy.electricity_access_pct IS NOT NULL"
+    }
+  ]
+}

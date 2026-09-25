@@ -1,0 +1,53 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "auradash-bi",
+  "main": "./worker/index.ts",
+  "compatibility_date": "2026-09-22",
+  // Cloudflare account to deploy to (or set CLOUDFLARE_ACCOUNT_ID)
+  "account_id": "18796b304228fbf6af19f7868d66cae0",
+  "observability": { "enabled": true },
+  "assets": {
+    "not_found_handling": "single-page-application",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"]
+  },
+  // Unique namespace ids: bindings that share an id share counters across every Worker on the account.
+  "ratelimits": [
+    { "name": "JEV_PER_IP", "namespace_id": "7301", "simple": { "limit": 60, "period": 60 } },
+    { "name": "JEV_GLOBAL", "namespace_id": "7302", "simple": { "limit": 600, "period": 60 } },
+    { "name": "EVENTS_PER_IP", "namespace_id": "7303", "simple": { "limit": 30, "period": 60 } }
+  ],
+  // Repo default: demo mode off (uploads on, no bundled-dataset restriction), no D1, workers.dev only.
+  "vars": { "JEV_MODEL": "jev-1.13.0", "DEMO_MODE": "false" },
+  // secret: TYPESAFE_API_KEY (wrangler secret put TYPESAFE_API_KEY; locally in .dev.vars)
+
+  // OWNER: platform. Public demo (`bun run deploy:demo`): same Worker name as the top level (so
+  // this replaces, not duplicates, the deployed Worker), DEMO_MODE on, the EVENTS D1 binding for
+  // anonymous interaction history, and the real custom domain. The lead deploys this — implementers
+  // only prove it with `wrangler deploy --dry-run --env demo`.
+  "env": {
+    "demo": {
+      "name": "auradash-bi",
+      "vars": { "JEV_MODEL": "jev-1.13.0", "DEMO_MODE": "true" },
+      "ratelimits": [
+        { "name": "JEV_PER_IP", "namespace_id": "7301", "simple": { "limit": 60, "period": 60 } },
+        { "name": "JEV_GLOBAL", "namespace_id": "7302", "simple": { "limit": 600, "period": 60 } },
+        { "name": "EVENTS_PER_IP", "namespace_id": "7303", "simple": { "limit": 30, "period": 60 } }
+      ],
+      "d1_databases": [{ "binding": "EVENTS", "database_name": "auradash-events", "database_id": "ecda7237-9962-4f37-94f5-09ac22462e40" }],
+      // auradash-bi is the public hostname; auradash-b1 (the old one) stays attached so existing
+      // links keep working. A deploy replaces the custom domains with exactly this list.
+      "routes": [
+        { "pattern": "auradash-bi.everadapt.au", "custom_domain": true },
+        { "pattern": "auradash-b1.everadapt.au", "custom_domain": true }
+      ],
+      "workers_dev": true,
+      "observability": { "enabled": true },
+      "assets": {
+        "not_found_handling": "single-page-application",
+        "binding": "ASSETS",
+        "run_worker_first": ["/api/*"]
+      }
+    }
+  }
+}

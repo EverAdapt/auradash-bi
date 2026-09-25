@@ -1,0 +1,38 @@
+/**
+ * OWNER: charts. Small CSS the chart layer needs beyond Tailwind utilities + src/index.css's
+ * design tokens — imported from src/components/charts/index.tsx, never from src/index.css.
+ */
+
+/* Recharts draws its own SVG focus ring on click; the surrounding card already shows focus. */
+.recharts-wrapper:focus,
+.recharts-surface:focus {
+  outline: none;
+}
+
+/* Custom-SVG cells (heatmap) and features (choropleth) ease their fill in on hover. */
+.viz-cell {
+  transition: fill 120ms var(--ease-out, ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .viz-cell {
+    transition: none;
+  }
+}
+
+/* A themed scrollbar for the table renderer and the heatmap's overflow container. */
+.viz-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--chart-axis) transparent;
+}
+.viz-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.viz-scroll::-webkit-scrollbar-thumb {
+  background: var(--chart-axis);
+  border-radius: 9999px;
+}
+.viz-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}

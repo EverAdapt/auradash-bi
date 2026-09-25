@@ -1,0 +1,1101 @@
+{
+  "id": "afl",
+  "title": "AFL",
+  "tagline": "Every VFL/AFL match since 1897: clubs, venues, ladders, finals and premierships.",
+  "source": {
+    "name": "Squiggle API - api.squiggle.com.au",
+    "url": "https://api.squiggle.com.au/"
+  },
+  "license": {
+    "id": "Squiggle-API-terms",
+    "url": "https://api.squiggle.com.au/"
+  },
+  "attribution": "Match, team and ladder data: Squiggle (squiggle.com.au). Not endorsed by or affiliated with the AFL or Squiggle.",
+  "defaultFact": "seasons",
+  "tables": {
+    "clubs": {
+      "label": "Clubs",
+      "description": "The 20 clubs to have played in the VFL/AFL since 1897, current and historical.",
+      "synonyms": [
+        "club",
+        "clubs",
+        "team",
+        "teams",
+        "side",
+        "sides"
+      ],
+      "display": "name",
+      "columns": {
+        "club_id": {
+          "label": "Club id",
+          "role": "id"
+        },
+        "name": {
+          "label": "Club",
+          "role": "label",
+          "synonyms": [
+            "club",
+            "team"
+          ],
+          "values": {
+            "Collingwood": [
+              "pies",
+              "magpies",
+              "the pies",
+              "maggies"
+            ],
+            "Geelong": [
+              "cats",
+              "the cats"
+            ],
+            "Sydney": [
+              "swans",
+              "the swans",
+              "south melbourne"
+            ],
+            "Melbourne": [
+              "dees",
+              "demons",
+              "the demons"
+            ],
+            "Hawthorn": [
+              "hawks",
+              "the hawks"
+            ],
+            "Carlton": [
+              "blues",
+              "the blues"
+            ],
+            "Brisbane Lions": [
+              "lions",
+              "the lions",
+              "brisbane",
+              "brisbane bears"
+            ],
+            "Richmond": [
+              "tigers",
+              "the tigers",
+              "tiges"
+            ],
+            "Essendon": [
+              "dons",
+              "bombers",
+              "the bombers"
+            ],
+            "St Kilda": [
+              "saints",
+              "the saints"
+            ],
+            "Adelaide": [
+              "crows",
+              "the crows",
+              "adelaide crows"
+            ],
+            "Port Adelaide": [
+              "power",
+              "the power"
+            ],
+            "West Coast": [
+              "eagles",
+              "the eagles",
+              "weagles"
+            ],
+            "Fremantle": [
+              "freo",
+              "dockers",
+              "the dockers"
+            ],
+            "Western Bulldogs": [
+              "dogs",
+              "bulldogs",
+              "the bulldogs",
+              "footscray"
+            ],
+            "Gold Coast": [
+              "suns",
+              "the suns",
+              "gcs"
+            ],
+            "Greater Western Sydney": [
+              "giants",
+              "gws",
+              "gws giants",
+              "the giants"
+            ],
+            "North Melbourne": [
+              "kangas",
+              "north",
+              "kangaroos",
+              "roos",
+              "the kangaroos"
+            ],
+            "Fitzroy": [
+              "roys",
+              "the roys"
+            ],
+            "University": [
+              "students",
+              "varsity"
+            ]
+          }
+        },
+        "nickname": {
+          "label": "Nickname",
+          "role": "text"
+        },
+        "abbrev": {
+          "label": "Abbreviation",
+          "role": "text"
+        },
+        "state": {
+          "label": "State",
+          "role": "dimension",
+          "synonyms": [
+            "state",
+            "based in",
+            "home state"
+          ],
+          "values": {
+            "VIC": [
+              "victoria",
+              "victorian"
+            ],
+            "NSW": [
+              "new south wales"
+            ],
+            "QLD": [
+              "queensland"
+            ],
+            "SA": [
+              "south australia"
+            ],
+            "WA": [
+              "western australia"
+            ],
+            "TAS": [
+              "tasmania"
+            ],
+            "NT": [
+              "northern territory"
+            ],
+            "ACT": [
+              "australian capital territory",
+              "canberra"
+            ]
+          }
+        },
+        "founded_year": {
+          "label": "Founded",
+          "role": "time",
+          "grain": "year",
+          "synonyms": [
+            "founded",
+            "formed",
+            "established"
+          ]
+        },
+        "debut_year": {
+          "label": "VFL/AFL debut",
+          "role": "time",
+          "grain": "year",
+          "synonyms": [
+            "debut",
+            "first season",
+            "joined the competition"
+          ]
+        },
+        "retirement_year": {
+          "label": "Last season",
+          "role": "time",
+          "grain": "year",
+          "synonyms": [
+            "folded",
+            "disbanded",
+            "last season"
+          ]
+        },
+        "is_active": {
+          "label": "Still competing",
+          "role": "flag",
+          "synonyms": [
+            "current",
+            "active",
+            "defunct",
+            "still playing"
+          ]
+        },
+        "home_venue_id": {
+          "label": "Home venue",
+          "role": "fk",
+          "fk": "venues.venue_id",
+          "synonyms": [
+            "home ground",
+            "home venue",
+            "plays at",
+            "based at"
+          ]
+        },
+        "colours": {
+          "label": "Colours",
+          "role": "text",
+          "synonyms": [
+            "colors",
+            "guernsey",
+            "jumper"
+          ]
+        },
+        "seasons_played": {
+          "label": "Seasons played",
+          "role": "measure",
+          "agg": "avg",
+          "synonyms": [
+            "seasons played",
+            "longevity",
+            "how many seasons"
+          ]
+        },
+        "note": {
+          "label": "History note",
+          "role": "hidden"
+        }
+      }
+    },
+    "venues": {
+      "label": "Venues",
+      "description": "53 grounds that have hosted a VFL/AFL match, current and historical. Naming-rights renames (e.g. Docklands to Marvel Stadium) are merged onto the current name.",
+      "synonyms": [
+        "venue",
+        "venues",
+        "ground",
+        "grounds",
+        "stadium",
+        "oval",
+        "home ground advantage"
+      ],
+      "display": "name",
+      "columns": {
+        "venue_id": {
+          "label": "Venue id",
+          "role": "id"
+        },
+        "name": {
+          "label": "Venue",
+          "role": "label",
+          "synonyms": [
+            "venue",
+            "ground",
+            "stadium",
+            "oval"
+          ],
+          "values": {
+            "Marvel Stadium": [
+              "docklands",
+              "etihad stadium",
+              "telstra dome",
+              "colonial stadium"
+            ],
+            "GMHBA Stadium": [
+              "kardinia park",
+              "skilled stadium",
+              "simonds stadium"
+            ],
+            "Eureka Stadium": [
+              "mars stadium"
+            ],
+            "Optus Stadium": [
+              "perth stadium"
+            ],
+            "York Park": [
+              "university of tasmania stadium",
+              "utas stadium"
+            ],
+            "Jiangwan Stadium": [
+              "adelaide arena",
+              "shanghai stadium"
+            ],
+            "Gabba": [
+              "the gabba",
+              "brisbane cricket ground"
+            ],
+            "M.C.G.": [
+              "mcg",
+              "the mcg",
+              "melbourne cricket ground"
+            ],
+            "S.C.G.": [
+              "scg",
+              "the scg",
+              "sydney cricket ground"
+            ],
+            "W.A.C.A.": [
+              "waca",
+              "the waca"
+            ]
+          }
+        },
+        "city": {
+          "label": "City",
+          "role": "dimension",
+          "synonyms": [
+            "city",
+            "located in"
+          ]
+        },
+        "state": {
+          "label": "State",
+          "role": "dimension",
+          "synonyms": [
+            "state"
+          ]
+        },
+        "country": {
+          "label": "Country",
+          "role": "dimension",
+          "synonyms": [
+            "country"
+          ]
+        },
+        "latitude": {
+          "label": "Latitude",
+          "role": "latitude"
+        },
+        "longitude": {
+          "label": "Longitude",
+          "role": "longitude"
+        },
+        "capacity": {
+          "label": "Capacity",
+          "role": "measure",
+          "agg": "max",
+          "unit": "seats",
+          "synonyms": [
+            "capacity",
+            "how many people",
+            "seats",
+            "biggest"
+          ]
+        },
+        "first_year": {
+          "label": "First used",
+          "role": "time",
+          "grain": "year"
+        },
+        "last_year": {
+          "label": "Last used",
+          "role": "time",
+          "grain": "year"
+        },
+        "is_active": {
+          "label": "Still used",
+          "role": "flag",
+          "synonyms": [
+            "still used",
+            "current",
+            "closed",
+            "demolished"
+          ]
+        },
+        "matches_hosted": {
+          "label": "Matches hosted",
+          "role": "measure",
+          "agg": "sum",
+          "synonyms": [
+            "matches hosted",
+            "games hosted",
+            "how many matches"
+          ]
+        }
+      }
+    },
+    "seasons": {
+      "label": "Seasons",
+      "description": "One row per year (1897-present) with the premier, runner-up and minor premier.",
+      "synonyms": [
+        "season",
+        "seasons",
+        "year",
+        "premiership",
+        "flag"
+      ],
+      "display": "year",
+      "columns": {
+        "year": {
+          "label": "Year",
+          "role": "time",
+          "grain": "year",
+          "synonyms": [
+            "year",
+            "season",
+            "when"
+          ]
+        },
+        "decade": {
+          "label": "Decade",
+          "role": "time",
+          "grain": "decade"
+        },
+        "era": {
+          "label": "Competition era",
+          "role": "dimension",
+          "values": {
+            "VFL": [
+              "victorian football league"
+            ],
+            "AFL": [
+              "australian football league"
+            ]
+          },
+          "description": "VFL (1897-1989) or AFL (1990 onward); not a season or year",
+          "synonyms": [
+            "era",
+            "VFL era",
+            "AFL era",
+            "VFL vs AFL",
+            "competition name"
+          ]
+        },
+        "team_count": {
+          "label": "Clubs that season",
+          "role": "measure",
+          "agg": "avg",
+          "synonyms": [
+            "how many teams",
+            "number of clubs"
+          ]
+        },
+        "matches_played": {
+          "label": "Matches played",
+          "role": "measure",
+          "agg": "sum",
+          "synonyms": [
+            "how many games",
+            "matches that season"
+          ]
+        },
+        "premier_club_id": {
+          "label": "Premiers",
+          "role": "fk",
+          "fk": "clubs.club_id",
+          "synonyms": [
+            "premiers",
+            "premiership winner",
+            "flag winner",
+            "won the flag",
+            "grand final winner",
+            "won the premiership",
+            "champions"
+          ]
+        },
+        "runner_up_club_id": {
+          "label": "Runner-up",
+          "role": "fk",
+          "fk": "clubs.club_id",
+          "synonyms": [
+            "runner up",
+            "runners-up",
+            "lost the grand final",
+            "beaten grand finalist",
+            "wooden spoon"
+          ]
+        },
+        "minor_premier_club_id": {
+          "label": "Minor premiers",
+          "role": "fk",
+          "fk": "clubs.club_id",
+          "synonyms": [
+            "minor premiers",
+            "topped the ladder",
+            "ladder leaders",
+            "top of the table",
+            "finished on top"
+          ]
+        },
+        "is_complete": {
+          "label": "Season complete",
+          "role": "flag",
+          "synonyms": [
+            "season finished",
+            "in progress",
+            "current season"
+          ]
+        }
+      }
+    },
+    "matches": {
+      "label": "Matches",
+      "description": "Every completed VFL/AFL match, 1897-present: scores, venue, round and derived margin/winner.",
+      "synonyms": [
+        "match",
+        "matches",
+        "game",
+        "games",
+        "result",
+        "results",
+        "fixture"
+      ],
+      "listColumns": [
+        "match_date",
+        "round_name",
+        "home_club_id",
+        "home_score",
+        "away_club_id",
+        "away_score",
+        "venue_id",
+        "margin"
+      ],
+      "columns": {
+        "match_id": {
+          "label": "Match id",
+          "role": "id"
+        },
+        "year": {
+          "label": "Year",
+          "role": "time",
+          "grain": "year",
+          "synonyms": [
+            "year",
+            "season",
+            "when"
+          ]
+        },
+        "decade": {
+          "label": "Decade",
+          "role": "time",
+          "grain": "decade"
+        },
+        "round_number": {
+          "label": "Round",
+          "role": "dimension",
+          "synonyms": [
+            "round"
+          ]
+        },
+        "round_name": {
+          "label": "Round name",
+          "role": "dimension",
+          "synonyms": [
+            "round",
+            "stage of the finals"
+          ]
+        },
+        "is_final": {
+          "label": "Is a final",
+          "role": "flag",
+          "synonyms": [
+            "final",
+            "finals",
+            "in the finals"
+          ]
+        },
+        "final_type": {
+          "label": "Final type",
+          "role": "dimension",
+          "values": {
+            "grand_final": [
+              "grand final",
+              "decider",
+              "the big dance"
+            ],
+            "preliminary_final": [
+              "preliminary final",
+              "prelim final",
+              "prelim"
+            ],
+            "semi_final": [
+              "semi final",
+              "semi"
+            ],
+            "qualifying_final": [
+              "qualifying final",
+              "qualifier"
+            ],
+            "elimination_final": [
+              "elimination final",
+              "elim final",
+              "sudden death"
+            ],
+            "wildcard_final": [
+              "wildcard final",
+              "wildcard"
+            ]
+          }
+        },
+        "is_grand_final": {
+          "label": "Is the Grand Final",
+          "role": "flag",
+          "synonyms": [
+            "grand final",
+            "decider",
+            "the big dance"
+          ]
+        },
+        "match_date": {
+          "label": "Date",
+          "role": "date",
+          "synonyms": [
+            "date",
+            "played on"
+          ]
+        },
+        "venue_id": {
+          "label": "Venue",
+          "role": "fk",
+          "fk": "venues.venue_id",
+          "synonyms": [
+            "venue",
+            "ground",
+            "played at",
+            "stadium"
+          ]
+        },
+        "home_club_id": {
+          "label": "Home team",
+          "role": "fk",
+          "fk": "clubs.club_id",
+          "synonyms": [
+            "home games",
+            "home team",
+            "home side",
+            "hosted",
+            "hosting"
+          ]
+        },
+        "away_club_id": {
+          "label": "Away team",
+          "role": "fk",
+          "fk": "clubs.club_id",
+          "synonyms": [
+            "away games",
+            "away team",
+            "away side",
+            "visiting",
+            "travelling",
+            "visitor"
+          ]
+        },
+        "home_score": {
+          "label": "Home score",
+          "role": "measure",
+          "agg": "avg",
+          "unit": "points",
+          "synonyms": [
+            "home score"
+          ]
+        },
+        "away_score": {
+          "label": "Away score",
+          "role": "measure",
+          "agg": "avg",
+          "unit": "points",
+          "synonyms": [
+            "away score"
+          ]
+        },
+        "home_goals": {
+          "label": "Home goals",
+          "role": "hidden"
+        },
+        "home_behinds": {
+          "label": "Home behinds",
+          "role": "hidden"
+        },
+        "away_goals": {
+          "label": "Away goals",
+          "role": "hidden"
+        },
+        "away_behinds": {
+          "label": "Away behinds",
+          "role": "hidden"
+        },
+        "total_score": {
+          "label": "Total score",
+          "role": "measure",
+          "agg": "avg",
+          "unit": "points",
+          "binnable": {
+            "width": 20
+          },
+          "synonyms": [
+            "total score",
+            "combined score",
+            "total points",
+            "highest scoring"
+          ]
+        },
+        "margin": {
+          "label": "Margin",
+          "role": "measure",
+          "agg": "avg",
+          "unit": "points",
+          "binnable": {
+            "width": 10
+          },
+          "synonyms": [
+            "margin",
+            "winning margin",
+            "by how much",
+            "biggest win",
+            "closest game",
+            "blowout"
+          ]
+        },
+        "winner_club_id": {
+          "label": "Winner",
+          "role": "fk",
+          "fk": "clubs.club_id",
+          "synonyms": [
+            "winner", "win", "won", "wins",
+            "beat",
+            "victor",
+            "victories",
+            "champion",
+            "premiership winner"
+          ]
+        },
+        "loser_club_id": {
+          "label": "Loser",
+          "role": "fk",
+          "fk": "clubs.club_id",
+          "synonyms": [
+            "loser",
+            "lost",
+            "losses",
+            "beaten",
+            "defeated",
+            "runner-up"
+          ]
+        },
+        "winner_side": {
+          "label": "Winning side",
+          "role": "dimension",
+          "values": {
+            "home": [
+              "home team won",
+              "home ground advantage",
+              "home win"
+            ],
+            "away": [
+              "away team won",
+              "upset",
+              "away win"
+            ],
+            "draw": [
+              "draw",
+              "tied",
+              "drawn game"
+            ]
+          }
+        },
+        "is_draw": {
+          "label": "Drawn game",
+          "role": "flag",
+          "synonyms": [
+            "draw",
+            "tie",
+            "tied",
+            "drawn"
+          ]
+        }
+      }
+    },
+    "ladder": {
+      "label": "Ladder",
+      "description": "The final (or current, mid-season) standings table for every year.",
+      "synonyms": [
+        "ladder",
+        "standings",
+        "table",
+        "percentage"
+      ],
+      "listColumns": [
+        "year",
+        "club_id",
+        "position",
+        "played",
+        "wins",
+        "losses",
+        "percentage",
+        "premiership_points"
+      ],
+      "columns": {
+        "year": {
+          "label": "Year",
+          "role": "time",
+          "grain": "year"
+        },
+        "club_id": {
+          "label": "Club",
+          "role": "fk",
+          "fk": "clubs.club_id",
+          "synonyms": [
+            "team",
+            "club"
+          ]
+        },
+        "position": {
+          "label": "Ladder position",
+          "role": "measure",
+          "agg": "avg",
+          "direction": -1,
+          "synonyms": [
+            "ladder position",
+            "rank",
+            "finished",
+            "position"
+          ]
+        },
+        "played": {
+          "label": "Played",
+          "role": "measure",
+          "agg": "sum",
+          "synonyms": [
+            "games played",
+            "played"
+          ]
+        },
+        "wins": {
+          "label": "Season wins",
+          "role": "measure",
+          "agg": "sum",
+          "synonyms": [
+            "wins that season",
+            "season wins",
+            "games won that year"
+          ]
+        },
+        "losses": {
+          "label": "Losses",
+          "role": "measure",
+          "agg": "sum",
+          "synonyms": [
+            "losses",
+            "how many losses"
+          ]
+        },
+        "draws": {
+          "label": "Draws",
+          "role": "measure",
+          "agg": "sum",
+          "synonyms": [
+            "draws",
+            "ties"
+          ]
+        },
+        "points_for": {
+          "label": "Points for",
+          "role": "measure",
+          "agg": "sum",
+          "unit": "points",
+          "synonyms": [
+            "points for",
+            "scoring",
+            "total points scored"
+          ]
+        },
+        "points_against": {
+          "label": "Points against",
+          "role": "measure",
+          "agg": "sum",
+          "unit": "points",
+          "synonyms": [
+            "points against",
+            "points conceded"
+          ]
+        },
+        "percentage": {
+          "label": "Percentage",
+          "role": "measure",
+          "agg": "avg",
+          "synonyms": [
+            "percentage",
+            "percent"
+          ]
+        },
+        "premiership_points": {
+          "label": "Premiership points",
+          "role": "measure",
+          "agg": "sum",
+          "synonyms": [
+            "premiership points",
+            "competition points",
+            "pts"
+          ]
+        }
+      }
+    }
+  },
+  "joins": [
+    {
+      "from": "clubs.home_venue_id",
+      "to": "venues.venue_id",
+      "kind": "many-to-one"
+    },
+    {
+      "from": "matches.venue_id",
+      "to": "venues.venue_id",
+      "kind": "many-to-one"
+    },
+    {
+      "from": "matches.winner_club_id",
+      "to": "clubs.club_id",
+      "kind": "many-to-one",
+      "alias": "winner_club"
+    },
+    {
+      "from": "matches.home_club_id",
+      "to": "clubs.club_id",
+      "kind": "many-to-one",
+      "alias": "home_club"
+    },
+    {
+      "from": "matches.away_club_id",
+      "to": "clubs.club_id",
+      "kind": "many-to-one",
+      "alias": "away_club"
+    },
+    {
+      "from": "matches.loser_club_id",
+      "to": "clubs.club_id",
+      "kind": "many-to-one",
+      "alias": "loser_club"
+    },
+    {
+      "from": "ladder.club_id",
+      "to": "clubs.club_id",
+      "kind": "many-to-one"
+    },
+    {
+      "from": "seasons.premier_club_id",
+      "to": "clubs.club_id",
+      "kind": "many-to-one",
+      "alias": "premier_club"
+    },
+    {
+      "from": "seasons.runner_up_club_id",
+      "to": "clubs.club_id",
+      "kind": "many-to-one",
+      "alias": "runner_up_club"
+    },
+    {
+      "from": "seasons.minor_premier_club_id",
+      "to": "clubs.club_id",
+      "kind": "many-to-one",
+      "alias": "minor_premier_club"
+    }
+  ],
+  "metrics": {
+    "matches": {
+      "label": "Matches played",
+      "sql": "COUNT(*)",
+      "table": "matches",
+      "synonyms": [
+        "games",
+        "matches",
+        "how many games",
+        "how many matches"
+      ]
+    },
+    "premierships": {
+      "label": "Premierships",
+      "sql": "COUNT(*)",
+      "table": "seasons",
+      "synonyms": [
+        "flags",
+        "premierships",
+        "flags won",
+        "premiership wins"
+      ]
+    },
+    "avg_margin": {
+      "label": "Average winning margin",
+      "sql": "ROUND(AVG(margin), 1)",
+      "table": "matches",
+      "synonyms": [
+        "average margin",
+        "average winning margin"
+      ]
+    },
+    "avg_score": {
+      "label": "Average score",
+      "sql": "ROUND(AVG(total_score), 1)",
+      "table": "matches",
+      "synonyms": [
+        "average score"
+      ]
+    }
+  },
+  "rules": [
+    "Only VFL/AFL premierships (1897 onward) are counted here; a few clubs (Essendon, Carlton, Geelong) also hold pre-1897 VFA premierships that are not included, so totals can read lower than some historical club tallies.",
+    "1897 and 1924 have no premier_club_id or runner_up_club_id: those seasons' finals systems could crown a premier without a single deciding match, and Squiggle's data has no Grand Final game for either year. See matches WHERE year IN (1897, 1924) AND is_final = 1 for that year's finals results instead.",
+    "The 1948, 1977 and 2010 Grand Finals were drawn and replayed the following week; both matches appear in matches with is_grand_final = 1, but seasons.premier_club_id reflects only the replay.",
+    "Count premierships from seasons.premier_club_id (one row per season), not matches WHERE is_grand_final = 1, which double-counts the three drawn/replayed Grand Finals.",
+    "winner_club_id and loser_club_id are NULL for the 173 drawn matches (is_draw = 1).",
+    "No attendance/crowd data is included (not available from the source). venues.capacity is an approximate current or peak listed capacity, not a per-match figure.",
+    "The most recent season may still be in progress: seasons.is_complete = 0 and premier_club_id is NULL until its Grand Final is played.",
+    "A club-name filter on matches resolves through the winner_club relationship by default (so 'Fitzroy's matches' reads as 'Fitzroy's wins'); there is no single generic column for 'matches a club appeared in' (that needs home_club_id = X OR away_club_id = X). Ask about wins, home games or away games specifically for a clean answer."
+  ],
+  "tryPrompts": [
+    {
+      "text": "Which clubs have won the most premierships?",
+      "chart": "hbar",
+      "sql": "SELECT c.name AS club, COUNT(*) AS premierships FROM seasons s JOIN clubs c ON c.club_id = s.premier_club_id GROUP BY c.name ORDER BY premierships DESC LIMIT 10"
+    },
+    {
+      "text": "Average winning margin by season",
+      "chart": "line",
+      "sql": "SELECT year, ROUND(AVG(margin), 1) AS avg_margin FROM matches WHERE is_draw = 0 GROUP BY year ORDER BY year"
+    },
+    {
+      "text": "Show every AFL venue on a map",
+      "chart": "point_map",
+      "sql": "SELECT name, city, state, latitude, longitude, matches_hosted FROM venues WHERE latitude IS NOT NULL ORDER BY matches_hosted DESC"
+    },
+    {
+      "text": "List the matches with the biggest winning margins",
+      "chart": "table",
+      "sql": "SELECT m.year, hc.name AS home_club, m.home_score, ac.name AS away_club, m.away_score, m.margin FROM matches m JOIN clubs hc ON hc.club_id = m.home_club_id JOIN clubs ac ON ac.club_id = m.away_club_id ORDER BY m.margin DESC LIMIT 10"
+    },
+    {
+      "text": "What fraction of matches end in a home victory, an away victory, or a draw?",
+      "chart": "donut",
+      "sql": "SELECT winner_side, COUNT(*) AS matches FROM matches GROUP BY winner_side"
+    },
+    {
+      "text": "Distribution of total match scores",
+      "chart": "histogram",
+      "sql": "SELECT (total_score / 20) * 20 AS score_band, COUNT(*) AS matches FROM matches GROUP BY score_band ORDER BY score_band"
+    },
+    {
+      "text": "Collingwood's wins per season since 2000",
+      "chart": "bar",
+      "sql": "SELECT year, wins FROM ladder WHERE club_id = 4 AND year >= 2000 ORDER BY year"
+    },
+    {
+      "text": "Ladder positions of the Swans by year",
+      "chart": "line",
+      "sql": "SELECT year, position FROM ladder WHERE club_id = 16 ORDER BY year"
+    }
+  ],
+  "morePrompts": [
+    {
+      "text": "How many premierships has Essendon won?",
+      "chart": "kpi",
+      "sql": "SELECT COUNT(*) AS premierships FROM seasons s JOIN clubs c ON c.club_id = s.premier_club_id WHERE c.name = 'Essendon'"
+    },
+    {
+      "text": "Show the margin and total score for every Grand Final",
+      "chart": "scatter",
+      "sql": "SELECT m.year, m.margin, m.total_score, hc.name AS home_club, ac.name AS away_club FROM matches m JOIN clubs hc ON hc.club_id = m.home_club_id JOIN clubs ac ON ac.club_id = m.away_club_id WHERE m.is_grand_final = 1 ORDER BY m.year"
+    },
+    {
+      "text": "Matches hosted by state",
+      "chart": "hbar",
+      "sql": "SELECT v.state, COUNT(*) AS matches FROM matches m JOIN venues v ON v.venue_id = m.venue_id WHERE v.state IS NOT NULL GROUP BY v.state ORDER BY matches DESC"
+    },
+    {
+      "text": "Grand final margins over time",
+      "chart": "line",
+      "sql": "SELECT year, margin FROM matches WHERE is_grand_final = 1 ORDER BY year"
+    }
+  ]
+}

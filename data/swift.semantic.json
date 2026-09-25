@@ -1,0 +1,760 @@
+{
+  "id": "swift",
+  "title": "Taylor Swift",
+  "tagline": "Every Taylor Swift album and song, who co-wrote what, every Grammy and AMA, and all six tours down to each Eras Tour show.",
+  "source": {
+    "name": "MusicBrainz, Wikidata & Wikipedia",
+    "url": "https://musicbrainz.org/artist/20244d07-534f-4eff-b4d4-930878889970"
+  },
+  "license": {
+    "id": "CC-BY-SA-4.0",
+    "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+  },
+  "attribution": "Discography and credits: MusicBrainz contributors (CC0). Awards and tours: Wikidata contributors (CC0). Tour dates, totals and Easter-egg facts: Wikipedia contributors (CC BY-SA 4.0). Not endorsed by or affiliated with Taylor Swift.",
+  "defaultFact": "songs",
+  "tables": {
+    "albums": {
+      "label": "Albums",
+      "description": "12 studio albums plus the 4 \"Taylor's Version\" re-recordings.",
+      "synonyms": [
+        "album",
+        "record",
+        "era",
+        "eras"
+      ],
+      "display": "title",
+      "columns": {
+        "album_id": {
+          "label": "Album id",
+          "role": "id"
+        },
+        "title": {
+          "label": "Album",
+          "role": "label",
+          "values": {
+            "Taylor Swift": [
+              "debut",
+              "debut album",
+              "self-titled"
+            ],
+            "reputation": [
+              "rep",
+              "reputation album"
+            ],
+            "The Tortured Poets Department": [
+              "TTPD",
+              "tortured poets"
+            ],
+            "Fearless (Taylor's Version)": [
+              "Fearless TV"
+            ],
+            "Red (Taylor's Version)": [
+              "Red TV"
+            ],
+            "Speak Now (Taylor's Version)": [
+              "Speak Now TV"
+            ],
+            "1989 (Taylor's Version)": [
+              "1989 TV"
+            ]
+          }
+        },
+        "release_date": {
+          "label": "Release date",
+          "role": "date"
+        },
+        "year": {
+          "label": "Year",
+          "role": "time",
+          "grain": "year"
+        },
+        "era": {
+          "label": "Era",
+          "role": "dimension",
+          "synonyms": [
+            "era",
+            "eras"
+          ]
+        },
+        "is_taylors_version": {
+          "label": "Taylor's Version",
+          "role": "flag",
+          "synonyms": [
+            "Taylor's Version",
+            "TV",
+            "re-recorded",
+            "re-recording",
+            "rerecorded"
+          ]
+        },
+        "original_album_id": {
+          "label": "Original album",
+          "role": "fk",
+          "fk": "albums.album_id"
+        },
+        "album_type": {
+          "label": "Album type",
+          "role": "dimension",
+          "values": {
+            "studio": [
+              "original",
+              "studio album"
+            ],
+            "re-recording": [
+              "Taylor's Version",
+              "re-recorded",
+              "rerecording"
+            ]
+          }
+        },
+        "track_count": {
+          "label": "Track count",
+          "role": "measure",
+          "agg": "avg",
+          "synonyms": [
+            "how many songs",
+            "number of tracks",
+            "tracklist length"
+          ]
+        },
+        "total_minutes": {
+          "label": "Total length",
+          "role": "measure",
+          "agg": "avg",
+          "unit": "minutes",
+          "synonyms": [
+            "album length",
+            "runtime",
+            "how long is the album"
+          ]
+        },
+        "label": {
+          "label": "Record label",
+          "role": "dimension",
+          "synonyms": [
+            "record label",
+            "label"
+          ]
+        }
+      }
+    },
+    "songs": {
+      "label": "Songs",
+      "description": "Every track on those 16 albums (title, length, position); no lyrics.",
+      "synonyms": [
+        "song",
+        "track",
+        "tracks"
+      ],
+      "display": "title",
+      "listColumns": ["title", "album_id", "track_number", "duration_s", "featured_artists", "year"],
+      "columns": {
+        "song_id": {
+          "label": "Song id",
+          "role": "id"
+        },
+        "album_id": {
+          "label": "Album",
+          "role": "fk",
+          "fk": "albums.album_id"
+        },
+        "title": {
+          "label": "Song",
+          "role": "label",
+          "synonyms": [
+            "song",
+            "track",
+            "which songs",
+            "songs"
+          ]
+        },
+        "track_number": {
+          "label": "Track #",
+          "role": "order"
+        },
+        "disc_number": {
+          "label": "Disc #",
+          "role": "order"
+        },
+        "duration_s": {
+          "label": "Length",
+          "role": "measure",
+          "agg": "avg",
+          "unit": "seconds",
+          "binnable": {
+            "width": 30
+          },
+          "synonyms": [
+            "song length",
+            "duration",
+            "how long",
+            "longest",
+            "shortest"
+          ]
+        },
+        "is_vault_track": {
+          "label": "Vault track",
+          "role": "flag",
+          "synonyms": [
+            "vault track",
+            "From The Vault",
+            "vault",
+            "vault tracks"
+          ]
+        },
+        "is_single": {
+          "label": "Released as a single",
+          "role": "flag",
+          "synonyms": [
+            "single",
+            "singles",
+            "released as a single"
+          ]
+        },
+        "featured_artists": {
+          "label": "Featured artist(s)",
+          "role": "dimension",
+          "synonyms": [
+            "featuring",
+            "feat",
+            "guest artist",
+            "collab",
+            "collaboration"
+          ]
+        },
+        "year": {
+          "label": "Year",
+          "role": "time",
+          "grain": "year"
+        }
+      }
+    },
+    "people": {
+      "label": "People",
+      "description": "Songwriters credited on Taylor Swift's songs (from MusicBrainz work credits).",
+      "synonyms": [
+        "songwriter",
+        "songwriters",
+        "writer",
+        "co-writer",
+        "collaborator"
+      ],
+      "display": "name",
+      "columns": {
+        "person_id": {
+          "label": "Person id",
+          "role": "id"
+        },
+        "name": {
+          "label": "Songwriter",
+          "role": "label",
+          "synonyms": [
+            "songwriter",
+            "co-writer",
+            "cowriter",
+            "writer",
+            "collaborator",
+            "producer",
+            "person",
+            "who"
+          ]
+        }
+      }
+    },
+    "credits": {
+      "label": "Songwriting credits",
+      "description": "Who wrote each song (bridge between songs and people). Producer credits are not included.",
+      "synonyms": [
+        "credit",
+        "credits",
+        "co-wrote",
+        "songwriting credit",
+        "writer credit"
+      ],
+      "columns": {
+        "song_id": {
+          "label": "Song",
+          "role": "fk",
+          "fk": "songs.song_id"
+        },
+        "person_id": {
+          "label": "Person",
+          "role": "fk",
+          "fk": "people.person_id"
+        },
+        "role": {
+          "label": "Role",
+          "role": "dimension",
+          "values": {
+            "writer": [
+              "writer",
+              "songwriter"
+            ],
+            "composer": [
+              "composer"
+            ],
+            "lyricist": [
+              "lyricist"
+            ]
+          }
+        }
+      }
+    },
+    "awards": {
+      "label": "Awards",
+      "description": "Grammys, AMAs, VMAs and more, won or nominated (Wikidata's recorded history; not exhaustive).",
+      "synonyms": [
+        "award",
+        "awards",
+        "grammy",
+        "grammys",
+        "nomination",
+        "nominations"
+      ],
+      "columns": {
+        "award_id": {
+          "label": "Award id",
+          "role": "id"
+        },
+        "year": {
+          "label": "Year",
+          "role": "time",
+          "grain": "year"
+        },
+        "ceremony": {
+          "label": "Ceremony",
+          "role": "dimension",
+          "values": {
+            "Grammy Awards": [
+              "Grammy",
+              "Grammys",
+              "the Grammys"
+            ],
+            "American Music Awards": [
+              "AMA",
+              "AMAs"
+            ],
+            "MTV Video Music Awards": [
+              "VMA",
+              "VMAs",
+              "MTV VMAs"
+            ],
+            "CMA Awards": [
+              "Country Music Association Awards",
+              "CMAs"
+            ],
+            "BRIT Awards": [
+              "Brits",
+              "the Brits"
+            ],
+            "Billboard Awards": [
+              "Billboard Music Awards",
+              "BBMAs"
+            ]
+          }
+        },
+        "category": {
+          "label": "Category",
+          "role": "label"
+        },
+        "work": {
+          "label": "For work",
+          "role": "dimension",
+          "synonyms": [
+            "for which album",
+            "for which song"
+          ]
+        },
+        "result": {
+          "label": "Result",
+          "role": "dimension",
+          "values": {
+            "won": [
+              "win",
+              "wins",
+              "winner",
+              "won"
+            ],
+            "nominated": [
+              "nomination",
+              "nominations",
+              "nominee",
+              "nominated"
+            ]
+          }
+        }
+      }
+    },
+    "tours": {
+      "label": "Tours",
+      "description": "Taylor Swift's six headlining concert tours, 2009-2024.",
+      "synonyms": [
+        "tour",
+        "tours",
+        "concert tour"
+      ],
+      "display": "name",
+      "columns": {
+        "tour_id": {
+          "label": "Tour id",
+          "role": "id"
+        },
+        "name": {
+          "label": "Tour",
+          "role": "label",
+          "synonyms": [
+            "the Eras Tour"
+          ]
+        },
+        "start_date": {
+          "label": "Started",
+          "role": "date"
+        },
+        "end_date": {
+          "label": "Ended",
+          "role": "date"
+        },
+        "shows": {
+          "label": "Shows",
+          "role": "measure",
+          "agg": "avg",
+          "synonyms": [
+            "number of shows",
+            "how many shows",
+            "concerts"
+          ]
+        },
+        "total_attendance": {
+          "label": "Total attendance",
+          "role": "measure",
+          "agg": "avg",
+          "unit": "tickets",
+          "format": "compact",
+          "synonyms": [
+            "tickets sold",
+            "how many people",
+            "total attendance",
+            "attendance"
+          ]
+        },
+        "gross_usd": {
+          "label": "Gross",
+          "role": "measure",
+          "agg": "avg",
+          "unit": "US$",
+          "format": "currency_compact",
+          "synonyms": [
+            "revenue",
+            "how much money",
+            "box office",
+            "gross revenue"
+          ]
+        }
+      }
+    },
+    "tour_shows": {
+      "label": "Tour dates",
+      "description": "Every Eras Tour show (date, city, venue, attendance). Earlier tours only have totals in the tours table.",
+      "synonyms": [
+        "show",
+        "shows",
+        "concert",
+        "concerts",
+        "tour date",
+        "tour dates",
+        "setlist stop"
+      ],
+      "listColumns": ["tour_id", "date", "city", "country_code", "venue", "attendance", "latitude", "longitude"],
+      "columns": {
+        "show_id": {
+          "label": "Show id",
+          "role": "id"
+        },
+        "tour_id": {
+          "label": "Tour",
+          "role": "fk",
+          "fk": "tours.tour_id"
+        },
+        "date": {
+          "label": "Date",
+          "description": "As printed on the source table: a month and day with no year (e.g. \"March 17\"), so it is not a real ISO date and is never offered as a time axis or a year/date filter.",
+          "role": "text"
+        },
+        "city": {
+          "label": "City",
+          "role": "dimension",
+          "synonyms": [
+            "city",
+            "cities",
+            "where"
+          ]
+        },
+        "country_code": {
+          "label": "Country",
+          "role": "geo_code",
+          "geo": "iso3",
+          "synonyms": [
+            "country",
+            "countries",
+            "which country"
+          ]
+        },
+        "venue": {
+          "label": "Venue",
+          "role": "label",
+          "synonyms": [
+            "stadium",
+            "arena"
+          ]
+        },
+        "attendance": {
+          "label": "Attendance",
+          "role": "measure",
+          "agg": "avg",
+          "unit": "tickets",
+          "format": "compact"
+        },
+        "latitude": {
+          "label": "Latitude",
+          "role": "latitude"
+        },
+        "longitude": {
+          "label": "Longitude",
+          "role": "longitude"
+        }
+      }
+    },
+    "easter_eggs": {
+      "label": "Easter eggs",
+      "description": "Documented hidden clues, callbacks and behind-the-scenes facts, in our own words, each cited to its source.",
+      "synonyms": [
+        "easter egg",
+        "easter eggs",
+        "hidden message",
+        "hidden clue",
+        "fun fact",
+        "trivia"
+      ],
+      "columns": {
+        "egg_id": {
+          "label": "Egg id",
+          "role": "id"
+        },
+        "album_id": {
+          "label": "Album",
+          "role": "fk",
+          "fk": "albums.album_id"
+        },
+        "song_id": {
+          "label": "Song",
+          "role": "fk",
+          "fk": "songs.song_id"
+        },
+        "category": {
+          "label": "Category",
+          "role": "dimension",
+          "values": {
+            "liner_notes": [
+              "liner notes"
+            ],
+            "album_art": [
+              "album art",
+              "cover art"
+            ],
+            "social_media": [
+              "social media"
+            ],
+            "music": [
+              "music",
+              "audio"
+            ],
+            "lyrics": [
+              "lyrics"
+            ]
+          }
+        },
+        "description": {
+          "label": "Description",
+          "role": "text"
+        },
+        "source_url": {
+          "label": "Source",
+          "role": "url"
+        }
+      }
+    }
+  },
+  "joins": [
+    {
+      "from": "songs.album_id",
+      "to": "albums.album_id",
+      "kind": "many-to-one"
+    },
+    {
+      "from": "albums.original_album_id",
+      "to": "albums.album_id",
+      "kind": "many-to-one",
+      "alias": "original_album"
+    },
+    {
+      "from": "credits.song_id",
+      "to": "songs.song_id",
+      "kind": "many-to-one"
+    },
+    {
+      "from": "credits.person_id",
+      "to": "people.person_id",
+      "kind": "many-to-one"
+    },
+    {
+      "from": "tour_shows.tour_id",
+      "to": "tours.tour_id",
+      "kind": "many-to-one"
+    },
+    {
+      "from": "easter_eggs.album_id",
+      "to": "albums.album_id",
+      "kind": "many-to-one"
+    },
+    {
+      "from": "easter_eggs.song_id",
+      "to": "songs.song_id",
+      "kind": "many-to-one"
+    }
+  ],
+  "metrics": {
+    "songs": {
+      "label": "Songs",
+      "sql": "COUNT(*)",
+      "table": "songs",
+      "synonyms": [
+        "how many songs",
+        "number of songs",
+        "track count"
+      ]
+    },
+    "albums": {
+      "label": "Albums",
+      "sql": "COUNT(*)",
+      "table": "albums",
+      "synonyms": [
+        "how many albums",
+        "number of albums"
+      ]
+    },
+    "vault_tracks": {
+      "label": "Vault tracks",
+      "sql": "SUM(songs.is_vault_track)",
+      "table": "songs",
+      "synonyms": [
+        "vault tracks",
+        "how many vault tracks",
+        "From The Vault songs"
+      ]
+    },
+    "avg_song_length": {
+      "label": "Average song length",
+      "sql": "ROUND(AVG(songs.duration_s), 0)",
+      "table": "songs",
+      "unit": "seconds",
+      "synonyms": [
+        "average song length",
+        "typical song length"
+      ]
+    },
+    "awards_won": {
+      "label": "Awards won",
+      "sql": "SUM(CASE WHEN awards.result = 'won' THEN 1 ELSE 0 END)",
+      "table": "awards",
+      "synonyms": [
+        "awards won",
+        "wins",
+        "how many awards",
+        "grammys won"
+      ]
+    },
+    "nominations": {
+      "label": "Nominations",
+      "sql": "SUM(CASE WHEN awards.result = 'nominated' THEN 1 ELSE 0 END)",
+      "table": "awards",
+      "synonyms": [
+        "nominations",
+        "how many nominations"
+      ]
+    }
+  },
+  "rules": [
+    "Only the Eras Tour has per-show rows in tour_shows (149 shows); the five earlier tours (Fearless Tour through Reputation Stadium Tour) only have tour-level totals in the tours table.",
+    "tour_shows.attendance sometimes repeats one combined figure across every night of a multi-night run at the same venue, when the source only reported a combined total (e.g. Wembley's eight nights). Summing tour_shows.attendance for a tour will overcount; use tours.attendance for a tour's real total.",
+    "credits only covers songwriting (writer/composer/lyricist), from MusicBrainz work credits; producer credits are not included.",
+    "is_single reflects MusicBrainz single and promotional-single release-groups, which includes some vault-track radio pushes alongside proper singles.",
+    "album_type is 'studio' for an original album and 're-recording' for a \"Taylor's Version\" release; is_taylors_version = 1 marks the same four re-recordings.",
+    "No lyrics are stored anywhere in this dataset, only song titles and short factual descriptions.",
+    "awards has no foreign key to any other table (an award isn't reliably tied to one album or song row), so its own columns (ceremony, category, result) can only be filtered or grouped through direct SQL today, not through natural-language questions - the planner currently only offers filter values and group-by dimensions from tables that join to something else.",
+    "tour_shows.date is the source table's own text (a month and day, no year - e.g. \"March 17\") and is not resolvable to a real calendar date, so it is stored as plain text rather than a date column; use tours.start_date/end_date for a real date range."
+  ],
+  "tryPrompts": [
+    {
+      "text": "How many songs are on each album?",
+      "chart": "hbar",
+      "sql": "SELECT a.title AS album, COUNT(*) AS songs FROM songs s JOIN albums a ON a.album_id = s.album_id GROUP BY a.album_id ORDER BY songs DESC"
+    },
+    {
+      "text": "Total minutes by album",
+      "chart": "hbar",
+      "sql": "SELECT title AS album, total_minutes FROM albums ORDER BY total_minutes DESC"
+    },
+    {
+      "text": "Share of vault tracks by album",
+      "chart": "donut",
+      "sql": "SELECT a.title AS album, COUNT(*) AS vault_tracks FROM songs s JOIN albums a ON a.album_id = s.album_id WHERE s.is_vault_track = 1 GROUP BY a.album_id ORDER BY vault_tracks DESC"
+    },
+    {
+      "text": "How many awards has Taylor Swift won?",
+      "chart": "kpi",
+      "sql": "SELECT SUM(CASE WHEN result = 'won' THEN 1 ELSE 0 END) AS awards_won FROM awards"
+    },
+    {
+      "text": "Top 10 songwriters by songs co-written with Taylor Swift",
+      "chart": "hbar",
+      "sql": "SELECT p.name AS songwriter, COUNT(*) AS songs FROM credits c JOIN people p ON p.person_id = c.person_id WHERE p.name <> 'Taylor Swift' GROUP BY c.person_id ORDER BY songs DESC LIMIT 10"
+    },
+    {
+      "text": "Where did the Eras Tour play?",
+      "chart": "point_map",
+      "sql": "SELECT ts.city, ts.country_code, ts.venue, ts.latitude, ts.longitude FROM tour_shows ts JOIN tours t ON t.tour_id = ts.tour_id WHERE t.name = 'The Eras Tour' AND ts.latitude IS NOT NULL"
+    },
+    {
+      "text": "Eras Tour shows by country",
+      "chart": "choropleth",
+      "sql": "SELECT ts.country_code, COUNT(*) AS shows FROM tour_shows ts JOIN tours t ON t.tour_id = ts.tour_id WHERE t.name = 'The Eras Tour' GROUP BY ts.country_code"
+    },
+    {
+      "text": "Distribution of song lengths",
+      "chart": "histogram",
+      "sql": "SELECT (duration_s / 30) * 30 AS bucket_s, COUNT(*) AS songs FROM songs WHERE duration_s IS NOT NULL GROUP BY bucket_s ORDER BY bucket_s"
+    }
+  ],
+  "morePrompts": [
+    {
+      "text": "How many Easter eggs are there per album?",
+      "chart": "bar",
+      "sql": "SELECT a.title AS album, COUNT(*) AS easter_eggs FROM easter_eggs e JOIN albums a ON a.album_id = e.album_id GROUP BY a.album_id ORDER BY easter_eggs DESC"
+    },
+    {
+      "text": "Top 10 longest songs",
+      "chart": "hbar",
+      "sql": "SELECT s.title AS song, a.title AS album, s.duration_s FROM songs s JOIN albums a ON a.album_id = s.album_id ORDER BY s.duration_s DESC LIMIT 10"
+    },
+    {
+      "text": "Top tours by total attendance",
+      "chart": "hbar",
+      "sql": "SELECT name AS tour, total_attendance FROM tours ORDER BY total_attendance DESC"
+    },
+    {
+      "text": "Awards by ceremony",
+      "chart": "hbar",
+      "sql": "SELECT ceremony, COUNT(*) AS awards FROM awards GROUP BY ceremony ORDER BY awards DESC"
+    }
+  ]
+}

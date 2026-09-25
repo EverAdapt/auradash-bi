@@ -1,0 +1,283 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/geist";
+@import "@fontsource-variable/geist-mono";
+
+/* Dark mode is a class on <html> (theme-provider.tsx), never the OS query alone. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * auradash-bi design tokens. Ported from shapeshift (src/app/globals.css): warm stone neutrals,
+ * Open Color shade-8 hues, one concentric radius scale, three shadows, Geist.
+ * Dark values are new (shapeshift is light only). Chart tokens come from the dataviz skill's
+ * validated reference palette (references/palette.md): never cycle or generate series hues.
+ * Owned by the lead: agents add styles in their own feature CSS files, not here.
+ */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  /*
+   * One concentric radius scale: shell 28 → panels 20 → items 16 → tiles 12 → cells 8.
+   * Buttons, chips, badges and avatars are pills (rounded-full).
+   */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 28px;
+  --radius-3xl: 28px;
+  --radius-4xl: 9999px;
+  --radius-shell: var(--radius-2xl);
+
+  --color-brand: var(--brand);
+  --color-brand-soft: var(--brand-soft);
+  --color-ink-2: var(--ink-2);
+  --color-line-strong: var(--line-strong);
+  --color-positive: var(--positive);
+  --color-caution: var(--caution);
+  --color-caution-text: var(--caution-text);
+
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono Variable", ui-monospace, "Cascadia Code", Consolas, monospace;
+  --font-heading: var(--font-sans);
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+:root {
+  --radius: 0.75rem;
+
+  --background: #fafaf9;
+  --foreground: #1a1a19;
+  --card: #ffffff;
+  --card-foreground: #1a1a19;
+  --popover: #ffffff;
+  --popover-foreground: #1a1a19;
+  --primary: #1a1a19;
+  --primary-foreground: #fafaf9;
+  --secondary: #f4f4f2;
+  --secondary-foreground: #1a1a19;
+  --muted: #f4f4f2;
+  --muted-foreground: #706e68;
+  --accent: #eef1fd;
+  --accent-foreground: #3b5bdb;
+  --destructive: #e03131;
+  --border: #e8e7e4;
+  --input: #e8e7e4;
+  --ring: #3b5bdb;
+
+  --brand: #3b5bdb;
+  --brand-soft: #eef1fd;
+  --ink-2: #57564f;
+  --line-strong: #d6d4cf;
+  --positive: #2f9e44;
+  --caution: #e8590c;
+  --caution-text: #bb4c19;
+
+  --shadow-rest: 0 1px 2px rgb(26 26 25 / 0.04), 0 1px 1px rgb(26 26 25 / 0.03);
+  --shadow-lift: 0 1px 2px rgb(26 26 25 / 0.04), 0 8px 24px -6px rgb(26 26 25 / 0.08);
+  --shadow-float: 0 2px 4px rgb(26 26 25 / 0.04), 0 20px 48px -12px rgb(26 26 25 / 0.14);
+
+  /* ── Charts (dataviz reference palette, light) ── */
+  --series-1: #2a78d6; /* blue */
+  --series-2: #eb6834; /* orange */
+  --series-3: #1baf7a; /* aqua */
+  --series-4: #eda100; /* yellow */
+  --series-5: #e87ba4; /* magenta */
+  --series-6: #008300; /* green */
+  --series-7: #4a3aa7; /* violet */
+  --series-8: #e34948; /* red */
+  --series-other: #b4b2ab; /* folded tail ("Other") and de-emphasis gray */
+  /* sequential blue ramp (choropleth, heatmap), light → dark */
+  --seq-100: #cde2fb;
+  --seq-200: #9ec5f4;
+  --seq-300: #6da7ec;
+  --seq-400: #3987e5;
+  --seq-500: #256abf;
+  --seq-600: #184f95;
+  --seq-700: #0d366b;
+  --seq-empty: #f0efec; /* no data */
+  --chart-surface: #ffffff;
+  --chart-grid: #e1e0d9;
+  --chart-axis: #c3c2b7;
+  --chart-muted: #898781;
+  /* shadcn chart slots map to the first five series */
+  --chart-1: var(--series-1);
+  --chart-2: var(--series-2);
+  --chart-3: var(--series-3);
+  --chart-4: var(--series-4);
+  --chart-5: var(--series-5);
+
+  color-scheme: light;
+}
+
+.dark {
+  --background: #111110;
+  --foreground: #ededec;
+  --card: #1a1a19;
+  --card-foreground: #ededec;
+  --popover: #1f1f1e;
+  --popover-foreground: #ededec;
+  --primary: #ededec;
+  --primary-foreground: #1a1a19;
+  --secondary: #262624;
+  --secondary-foreground: #ededec;
+  --muted: #262624;
+  --muted-foreground: #a3a19a;
+  --accent: #1e2547;
+  --accent-foreground: #91a7ff;
+  --destructive: #ff6b6b;
+  --border: #2e2e2c;
+  --input: #2e2e2c;
+  --ring: #748ffc;
+
+  --brand: #748ffc;
+  --brand-soft: #1e2547;
+  --ink-2: #c4c2bb;
+  --line-strong: #3d3d3a;
+  --positive: #51cf66;
+  --caution: #ff922b;
+  --caution-text: #ffa94d;
+
+  --shadow-rest: 0 1px 2px rgb(0 0 0 / 0.3);
+  --shadow-lift: 0 1px 2px rgb(0 0 0 / 0.3), 0 8px 24px -6px rgb(0 0 0 / 0.45);
+  --shadow-float: 0 2px 4px rgb(0 0 0 / 0.3), 0 20px 48px -12px rgb(0 0 0 / 0.6);
+
+  /* ── Charts (dataviz reference palette, dark steps) ── */
+  --series-1: #3987e5;
+  --series-2: #d95926;
+  --series-3: #199e70;
+  --series-4: #c98500;
+  --series-5: #d55181;
+  --series-6: #008300;
+  --series-7: #9085e9;
+  --series-8: #e66767;
+  --series-other: #5f5e59;
+  --seq-100: #104281;
+  --seq-200: #184f95;
+  --seq-300: #256abf;
+  --seq-400: #2a78d6;
+  --seq-500: #5598e7;
+  --seq-600: #86b6ef;
+  --seq-700: #b7d3f6;
+  --seq-empty: #383835;
+  --chart-surface: #1a1a19;
+  --chart-grid: #2c2c2a;
+  --chart-axis: #383835;
+  --chart-muted: #898781;
+
+  color-scheme: dark;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior-y: none;
+  }
+  body {
+    @apply bg-background text-foreground;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "ss01", "cv11";
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  button,
+  a,
+  [role="button"],
+  label {
+    touch-action: manipulation;
+  }
+  ::selection {
+    background: var(--brand-soft);
+    color: var(--brand);
+  }
+}
+
+@layer components {
+  [data-slot="popover-content"],
+  [data-slot="select-content"],
+  [data-slot="dropdown-menu-content"] {
+    box-shadow: var(--shadow-float);
+  }
+  [data-slot="button"]:not(:disabled):active {
+    scale: 0.96;
+  }
+  [data-slot="button"] {
+    transition-property: color, background-color, border-color, scale, translate, opacity;
+    transition-duration: 150ms;
+    transition-timing-function: var(--ease-out);
+  }
+  [data-slot]:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+  svg.lucide {
+    stroke-width: 1.75;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-slot] {
+    --tw-enter-scale: 1 !important;
+    --tw-exit-scale: 1 !important;
+    --tw-enter-translate-x: 0 !important;
+    --tw-enter-translate-y: 0 !important;
+    --tw-exit-translate-x: 0 !important;
+    --tw-exit-translate-y: 0 !important;
+  }
+  [data-slot="button"]:not(:disabled):active {
+    scale: 1;
+  }
+}
+
+/* Radius system applied to shadcn parts through their data-slot hooks (unlayered on purpose). */
+[data-slot="popover-content"],
+[data-slot="select-content"],
+[data-slot="dropdown-menu-content"] {
+  border-radius: var(--radius-xl);
+}
+[data-slot="select-item"],
+[data-slot="command-item"],
+[data-slot="dropdown-menu-item"] {
+  border-radius: var(--radius-lg);
+}
+[data-slot="button"] {
+  border-radius: 9999px;
+}
+[data-slot="badge"] {
+  transition-property: color, background-color, border-color;
+}
+[data-sonner-toast] {
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}

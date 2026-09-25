@@ -1,0 +1,38 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# secrets / local
+.dev.vars
+.dev.vars.*
+.wrangler/
+worker-configuration.d.ts.bak
+
+# agent worktrees
+.claude/worktrees/
+!.dev.vars.example
+.claude/
+
+# v0.2 lead: regression baselines (local only)
+.baseline/
